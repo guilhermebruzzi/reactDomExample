@@ -21,16 +21,36 @@ const styles = {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'Welcome to React',
+      linkClicked: false,
+    };
+  }
+
+  onClick() {
+    this.setState({
+      text: 'Thanks for clicking! :D',
+      linkClicked: true,
+    });
+  }
+
   render() {
+    const link = (
+      <a href="#" onClick={this.onClick.bind(this)}>click me</a>
+    );
+
     return (
       <div style={styles.app}>
         <div style={styles.appHeader}>
           <img src={logo} style={styles.appLogo} alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>{this.state.text}</h2>
         </div>
         <p style={styles.appIntro}>
-          To get started, edit <code>src/App.js</code> and save to reload.
+          {this.props.helpMessage}
         </p>
+        {(!this.state.linkClicked) ? link : null}
       </div>
     );
   }
